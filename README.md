@@ -109,6 +109,35 @@ password: janedoe
 }
 ```
 
+### Docker
+
+#### Database
+To setup database container, navigate to db folder. Run:
+```
+docker build -t usermanager/mongod:1.0.0 .
+```
+to build docker image.
+
+Then run the command:
+
+```
+docker run --name mongod -d -p 27017:27017 -v localData:/data/db usermanager/mongod:1.0.0
+```
+to start container.
+
+#### Application
+To setup the application container, navigate to app folder. Run the command:
+```
+docker build -t usermanager/nodejswebserver:1.0.0 .
+```
+to build docker image.
+
+Then run the command:
+
+```
+docker run --name nodeserver -d -p 3000:3000 --link mongod:mongo usermanager/nodejswebserver:1.0.0
+```
+to start container.
 
 
 ### Author
